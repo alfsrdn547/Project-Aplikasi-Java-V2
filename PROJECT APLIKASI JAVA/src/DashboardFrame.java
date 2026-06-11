@@ -65,11 +65,7 @@ public class DashboardFrame extends JFrame {
         JPanel panelTombol = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         panelTombol.setBackground(Color.WHITE);
 
-        btnTambahTransaksi = new JButton("Tambah Transaksi");
-        btnTambahTransaksi.setBackground(new Color(41, 128, 185));
-        btnTambahTransaksi.setForeground(Color.WHITE);
-        btnTambahTransaksi.setFont(new Font("Arial", Font.BOLD, 14));
-        btnTambahTransaksi.setFocusPainted(false);
+        btnTambahTransaksi = UIHelper.createPrimaryButton("Tambah Transaksi");
         btnTambahTransaksi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,11 +79,7 @@ public class DashboardFrame extends JFrame {
         });
         panelTombol.add(btnTambahTransaksi);
 
-        JButton btnRefresh = new JButton("Refresh");
-        btnRefresh.setBackground(new Color(155, 89, 182));
-        btnRefresh.setForeground(Color.WHITE);
-        btnRefresh.setFont(new Font("Arial", Font.BOLD, 14));
-        btnRefresh.setFocusPainted(false);
+        JButton btnRefresh = UIHelper.createButton("Refresh", new Color(155, 89, 182), Color.WHITE);
         btnRefresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,11 +89,9 @@ public class DashboardFrame extends JFrame {
         });
         panelTombol.add(btnRefresh);
 
-        btnLihatUsers = new JButton("Lihat Pengguna");
-        btnLihatUsers.setBackground(new Color(52, 152, 219));
-        btnLihatUsers.setForeground(Color.WHITE);
-        btnLihatUsers.setFont(new Font("Arial", Font.BOLD, 14));
-        btnLihatUsers.setFocusPainted(false);
+        btnLihatUsers = UIHelper.createAccentButton("Lihat Pengguna");
+        btnLihatUsers.setVisible(Database.canAccessAdminFeatures());
+        btnLihatUsers.setEnabled(Database.canAccessAdminFeatures());
         btnLihatUsers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,11 +100,7 @@ public class DashboardFrame extends JFrame {
         });
         panelTombol.add(btnLihatUsers);
 
-        JButton btnReset = new JButton("Reset Saldo");
-        btnReset.setBackground(new Color(231, 76, 60));
-        btnReset.setForeground(Color.WHITE);
-        btnReset.setFont(new Font("Arial", Font.BOLD, 14));
-        btnReset.setFocusPainted(false);
+        JButton btnReset = UIHelper.createDangerButton("Reset Saldo");
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,11 +109,7 @@ public class DashboardFrame extends JFrame {
         });
         panelTombol.add(btnReset);
 
-        btnLihatRiwayat = new JButton("Lihat Riwayat");
-        btnLihatRiwayat.setBackground(new Color(52, 152, 219));
-        btnLihatRiwayat.setForeground(Color.WHITE);
-        btnLihatRiwayat.setFont(new Font("Arial", Font.BOLD, 14));
-        btnLihatRiwayat.setFocusPainted(false);
+        btnLihatRiwayat = UIHelper.createAccentButton("Lihat Riwayat");
         btnLihatRiwayat.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,11 +118,7 @@ public class DashboardFrame extends JFrame {
         });
         panelTombol.add(btnLihatRiwayat);
 
-        btnLogout = new JButton("Logout");
-        btnLogout.setBackground(new Color(192, 57, 43));
-        btnLogout.setForeground(Color.WHITE);
-        btnLogout.setFont(new Font("Arial", Font.BOLD, 14));
-        btnLogout.setFocusPainted(false);
+        btnLogout = UIHelper.createDangerButton("Logout");
         btnLogout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -165,6 +143,10 @@ public class DashboardFrame extends JFrame {
     }
 
     private void showUsers() {
+        if (!Database.canAccessAdminFeatures()) {
+            JOptionPane.showMessageDialog(this, "Fitur manajemen pengguna hanya tersedia untuk akun admin.", "Akses Ditolak", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         SwingUtilities.invokeLater(() -> {
             UsersFrame usersFrame = new UsersFrame();
             usersFrame.setLocationRelativeTo(this);

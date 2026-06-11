@@ -157,8 +157,7 @@ public class RiwayatFrame extends JFrame {
         JPanel panelTombol = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 0));
         panelTombol.setBackground(Color.WHITE);
 
-        JButton btnRefresh = new JButton("Refresh");
-        btnRefresh.setBackground(new Color(52, 152, 219));
+        JButton btnRefresh = UIHelper.createAccentButton("Refresh");
         btnRefresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -172,8 +171,7 @@ public class RiwayatFrame extends JFrame {
         panelExportGroup.setBackground(Color.WHITE);
         panelExportGroup.setOpaque(false);
 
-        JButton btnExportMinggu = new JButton("Export Mingguan");
-        btnExportMinggu.setBackground(new Color(39, 174, 96));
+        JButton btnExportMinggu = UIHelper.createButton("Export Mingguan", new Color(39, 174, 96), Color.WHITE);
         btnExportMinggu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -184,8 +182,7 @@ public class RiwayatFrame extends JFrame {
         btnExportMinggu.setPreferredSize(new Dimension(130, 34));
         panelExportGroup.add(btnExportMinggu);
 
-        JButton btnExportBulan = new JButton("Export Bulanan");
-        btnExportBulan.setBackground(new Color(39, 174, 96));
+        JButton btnExportBulan = UIHelper.createButton("Export Bulanan", new Color(39, 174, 96), Color.WHITE);
         btnExportBulan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -196,8 +193,7 @@ public class RiwayatFrame extends JFrame {
         btnExportBulan.setPreferredSize(new Dimension(130, 34));
         panelExportGroup.add(btnExportBulan);
 
-        JButton btnExportTahun = new JButton("Export Tahunan");
-        btnExportTahun.setBackground(new Color(39, 174, 96));
+        JButton btnExportTahun = UIHelper.createButton("Export Tahunan", new Color(39, 174, 96), Color.WHITE);
         btnExportTahun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -210,8 +206,7 @@ public class RiwayatFrame extends JFrame {
 
         panelTombol.add(panelExportGroup);
 
-        JButton btnKembali = new JButton("Kembali");
-        btnKembali.setBackground(new Color(149, 165, 166));
+        JButton btnKembali = UIHelper.createNeutralButton("Kembali");
         btnKembali.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

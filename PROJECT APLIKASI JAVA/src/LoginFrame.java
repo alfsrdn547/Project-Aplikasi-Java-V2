@@ -102,11 +102,7 @@ public class LoginFrame extends JFrame {
         // Panel Tombol
         JPanel panelTombol = new JPanel(new GridLayout(1, 3, 10, 0));
 
-        btnLogin = new JButton("Login");
-        btnLogin.setBackground(new Color(41, 128, 185));
-        btnLogin.setForeground(Color.WHITE);
-        btnLogin.setFont(new Font("Arial", Font.BOLD, 14));
-        btnLogin.setFocusPainted(false);
+        btnLogin = UIHelper.createPrimaryButton("Login");
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,11 +111,7 @@ public class LoginFrame extends JFrame {
         });
         panelTombol.add(btnLogin);
 
-        JButton btnRegister = new JButton("Register");
-        btnRegister.setBackground(new Color(46, 204, 113));
-        btnRegister.setForeground(Color.WHITE);
-        btnRegister.setFont(new Font("Arial", Font.BOLD, 14));
-        btnRegister.setFocusPainted(false);
+        JButton btnRegister = UIHelper.createSecondaryButton("Register");
         btnRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -133,11 +125,7 @@ public class LoginFrame extends JFrame {
         });
         panelTombol.add(btnRegister);
 
-        btnKeluar = new JButton("Keluar");
-        btnKeluar.setBackground(new Color(192, 57, 43));
-        btnKeluar.setForeground(Color.WHITE);
-        btnKeluar.setFont(new Font("Arial", Font.BOLD, 14));
-        btnKeluar.setFocusPainted(false);
+        btnKeluar = UIHelper.createDangerButton("Keluar");
         btnKeluar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

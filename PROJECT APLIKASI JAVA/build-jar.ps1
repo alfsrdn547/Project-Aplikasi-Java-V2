@@ -2,6 +2,7 @@ $projectDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $projectDir
 
 $libJar = "lib/mysql-connector-j-9.6.0.jar"
+$srcDir = Join-Path $projectDir "src"
 $jarName = "AplikasiKeuangan.jar"
 $classesDir = "classes"
 $manifestPath = Join-Path $projectDir "manifest.mf"
@@ -11,9 +12,9 @@ if (Test-Path $classesDir) {
 }
 New-Item -ItemType Directory -Force -Path $classesDir | Out-Null
 
-$sources = Get-ChildItem -Path $projectDir -Filter *.java | ForEach-Object { $_.FullName }
+$sources = Get-ChildItem -Path $srcDir -Filter *.java | ForEach-Object { $_.FullName }
 if ($sources.Count -eq 0) {
-    Write-Error "Tidak ditemukan file .java di folder proyek."
+    Write-Error "Tidak ditemukan file .java di folder src."
     exit 1
 }
 

@@ -9,6 +9,12 @@ public class UsersFrame extends JFrame {
     private DefaultTableModel tableModel;
 
     public UsersFrame() {
+        if (!Database.canAccessAdminFeatures()) {
+            JOptionPane.showMessageDialog(null, "Fitur manajemen pengguna hanya tersedia untuk akun admin.", "Akses Ditolak", JOptionPane.WARNING_MESSAGE);
+            dispose();
+            return;
+        }
+
         // Pengaturan Window
         setTitle("Daftar Pengguna - Manajer Keuangan");
         setSize(600, 450);
@@ -26,7 +32,7 @@ public class UsersFrame extends JFrame {
         add(panelJudul, BorderLayout.NORTH);
 
         // --- Tabel Pengguna (Tengah) ---
-        String[] kolom = { "ID", "Username" };
+        String[] kolom = { "ID", "Username", "Role" };
         tableModel = new DefaultTableModel(kolom, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -43,11 +49,7 @@ public class UsersFrame extends JFrame {
         JPanel panelBawah = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         panelBawah.setBackground(Color.WHITE);
 
-        JButton btnRefresh = new JButton("Refresh");
-        btnRefresh.setBackground(new Color(52, 152, 219));
-        btnRefresh.setForeground(Color.WHITE);
-        btnRefresh.setFont(new Font("Arial", Font.BOLD, 12));
-        btnRefresh.setFocusPainted(false);
+        JButton btnRefresh = UIHelper.createAccentButton("Refresh");
         btnRefresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,11 +58,48 @@ public class UsersFrame extends JFrame {
         });
         panelBawah.add(btnRefresh);
 
-        JButton btnClose = new JButton("Tutup");
-        btnClose.setBackground(new Color(149, 165, 166));
-        btnClose.setForeground(Color.WHITE);
-        btnClose.setFont(new Font("Arial", Font.BOLD, 12));
-        btnClose.setFocusPainted(false);
+        JButton btnViewTransactions = UIHelper.createPrimaryButton("Lihat Transaksi");
+        btnViewTransactions.setEnabled(Database.isCurrentUserAdmin());
+        btnViewTransactions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = tabelUsers.getSelectedRow();
+                if (selectedRow < 0) {
+                    JOptionPane.showMessageDialog(UsersFrame.this, "Pilih pengguna terlebih dahulu.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                String username = tableModel.getValueAt(selectedRow, 1).toString();
+                SwingUtilities.invokeLater(() -> {
+                    UserTransactionsFrame frame = new UserTransactionsFrame(username);
+                    frame.setVisible(true);
+                });
+            }
+        });
+        panelBawah.add(btnViewTransactions);
+
+        JButton btnDeleteAllUsers = UIHelper.createDangerButton("Hapus Semua User");
+        btnDeleteAllUsers.setEnabled(Database.isCurrentUserAdmin());
+        btnDeleteAllUsers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(UsersFrame.this,
+                        "Semua user selain admin akan dihapus. Lanjutkan?",
+                        "Konfirmasi Hapus Semua User",
+                        JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    boolean success = Database.deleteAllUsersExceptAdmin();
+                    if (success) {
+                        JOptionPane.showMessageDialog(UsersFrame.this, "Semua user selain admin berhasil dihapus.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        loadData();
+                    } else {
+                        JOptionPane.showMessageDialog(UsersFrame.this, "Gagal menghapus user.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        panelBawah.add(btnDeleteAllUsers);
+
+        JButton btnClose = UIHelper.createNeutralButton("Tutup");
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,7 +117,7 @@ public class UsersFrame extends JFrame {
     private void loadData() {
         tableModel.setRowCount(0);
         for (Database.User user : Database.getAllUsers()) {
-            tableModel.addRow(new Object[] { user.id, user.username });
+            tableModel.addRow(new Object[] { user.id, user.username, user.role });
         }
     }
 

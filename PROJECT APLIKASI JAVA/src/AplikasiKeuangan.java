@@ -75,7 +75,7 @@ public class AplikasiKeuangan extends JFrame {
         cbJenis = new JComboBox<>(new String[] { "Pemasukan", "Pengeluaran" });
         panelInput.add(cbJenis);
 
-        JButton btnTambah = new JButton("Tambah Transaksi");
+        JButton btnTambah = UIHelper.createPrimaryButton("Tambah Transaksi");
         panelInput.add(btnTambah);
 
         add(panelInput, BorderLayout.NORTH);

@@ -1,102 +1,44 @@
 # Aplikasi Keuangan
 
-Aplikasi desktop untuk pencatatan keuangan pribadi berbasis Java Swing dengan database MySQL.
+Panduan penggunaan untuk pengguna biasa.
 
-## Fitur
+## Apa yang bisa Anda lakukan
 
-- Login dan registrasi pengguna
-- Pencatatan pemasukan dan pengeluaran
-- Riwayat transaksi
-- Dashboard dan export transaksi
-- Inisialisasi database otomatis lewat `Database.java`
+- Login dan registrasi akun
+- Mencatat pemasukan dan pengeluaran
+- Melihat saldo, dashboard, dan riwayat transaksi
+- Mengekspor transaksi ke file CSV jika fitur tersedia
+- Menggunakan aplikasi secara mandiri tanpa akses ke panel admin
 
 ## Prasyarat
 
 - Java JDK 17 atau lebih baru
-- MySQL Server
-- Connector MySQL JDBC (`lib/mysql-connector-j-9.6.0.jar`)
+- MySQL Server yang bisa diakses aplikasi
+- File library JDBC tersedia di lib/mysql-connector-j-9.6.0.jar
 
-## Struktur Proyek
+## Persiapan
 
-- `PROJECT APLIKASI JAVA/` - source code utama
-- `lib/` - library eksternal
-- `transactions.txt` - data transaksi lokal/backup
-- `produk_db.sql` - skrip inisialisasi database
-
-## Cara Menjalankan
-
-### 1. Pastikan MySQL berjalan
-
-Buka terminal dan pastikan koneksi ke MySQL berhasil:
-
-```bash
-mysql -u root
-```
-
-Jika MySQL meminta password, atur environment variable:
+1. Pastikan MySQL berjalan.
+2. Sesuaikan konfigurasi database di PROJECT APLIKASI JAVA/db.properties.
+3. Jalankan aplikasi dengan:
 
 ```powershell
-$env:MYSQL_PASSWORD = "YOUR_PASSWORD"
+.\run.bat
 ```
 
-### 2. Jalankan aplikasi
+## Login
 
-Gunakan batch script:
+Gunakan akun yang telah Anda daftarkan. Jika belum punya akun, pilih menu registrasi.
 
-```bash
-run.bat
-```
+## Catatan penting
 
-Atau jalankan secara manual:
+- Fitur manajemen pengguna dan tombol admin tidak akan muncul untuk akun user biasa.
+- Jika Anda ingin mengelola akun pengguna lain, gunakan akun admin yang telah disediakan.
 
-```bash
-javac -cp ".;lib/mysql-connector-j-9.6.0.jar" *.java
-java -cp ".;lib/mysql-connector-j-9.6.0.jar" LoginFrame
-```
+## Bantuan
 
-### 3. Bangun executable JAR
+Jika aplikasi gagal terhubung ke database, cek kembali:
 
-Gunakan skrip berikut untuk membuat file JAR yang bisa dijalankan dengan `java -jar`:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\PROJECT APLIKASI JAVA\build-jar.ps1
-```
-
-Atau:
-
-```cmd
-cd "PROJECT APLIKASI JAVA"
-build-jar.bat
-```
-
-JAR yang dihasilkan akan bernama `AplikasiKeuangan.jar` dan menggunakan `lib/mysql-connector-j-9.6.0.jar` dari folder `lib/`.
-
-### 4. Bangun launcher `.exe`
-
-Jalankan skrip build berikut untuk membuat paket aplikasi Windows yang bisa dijalankan dengan klik:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\build-exe.ps1
-```
-
-Launcher akan dihasilkan di `build-exe/output/AplikasiKeuangan/AplikasiKeuangan.exe`.
-
-## Kredensial Default
-
-- Username: `admin`
-- Password: `123`
-
-> Password default untuk MySQL disetel melalui `MYSQL_PASSWORD` atau fallback ke nilai di `Database.java` jika variabel lingkungan belum diset.
-
-## Database
-
-Aplikasi akan mencoba membuat database `produk_db` dan tabel yang diperlukan saat dijalankan. File SQL awal:
-
-- `produk_db.sql`
-
-Jika ada kendala koneksi, cek `SETUP_DATABASE.txt` dan `Database.java`.
-
-## Catatan
-
-- Jika aplikasi gagal terhubung ke MySQL, pastikan `mysql-connector-j-9.6.0.jar` berada di folder `lib/`.
-- Untuk testing koneksi manual, gunakan `TestKoneksi.java`.
+- password MySQL
+- konfigurasi DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
+- file produk_db.sql dan Database.java

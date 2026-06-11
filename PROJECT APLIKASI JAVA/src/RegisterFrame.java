@@ -128,11 +128,7 @@ public class RegisterFrame extends JFrame {
         // Panel Tombol
         JPanel panelTombol = new JPanel(new GridLayout(1, 2, 10, 0));
 
-        btnRegister = new JButton("Register");
-        btnRegister.setBackground(new Color(41, 128, 185));
-        btnRegister.setForeground(Color.WHITE);
-        btnRegister.setFont(new Font("Arial", Font.BOLD, 14));
-        btnRegister.setFocusPainted(false);
+        btnRegister = UIHelper.createPrimaryButton("Register");
         btnRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,11 +137,7 @@ public class RegisterFrame extends JFrame {
         });
         panelTombol.add(btnRegister);
 
-        btnBack = new JButton("Kembali ke Login");
-        btnBack.setBackground(new Color(149, 165, 166));
-        btnBack.setForeground(Color.WHITE);
-        btnBack.setFont(new Font("Arial", Font.BOLD, 14));
-        btnBack.setFocusPainted(false);
+        btnBack = UIHelper.createNeutralButton("Kembali ke Login");
         btnBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

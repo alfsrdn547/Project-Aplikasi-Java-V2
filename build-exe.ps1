@@ -2,6 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $SourceDir = Join-Path $Root 'PROJECT APLIKASI JAVA'
+$JavaSourceDir = Join-Path $SourceDir 'src'
 $BuildDir = Join-Path $Root 'build-exe'
 $InputDir = Join-Path $BuildDir 'input'
 $OutputDir = Join-Path $BuildDir 'output'
@@ -34,16 +35,13 @@ New-Item -ItemType Directory -Force $InputDir | Out-Null
 New-Item -ItemType Directory -Force $OutputDir | Out-Null
 New-Item -ItemType Directory -Force $ClassesDir | Out-Null
 
-Set-Location $SourceDir
-& $Javac *.java
+Set-Location $JavaSourceDir
+& $Javac -d $ClassesDir *.java
+if ($LASTEXITCODE -ne 0) {
+    throw "Kompilasi gagal dengan exit code $LASTEXITCODE"
+}
 
 Copy-Item $ConnectorPath $InputDir
-
-Get-ChildItem -Path $SourceDir -Filter *.class -File | Remove-Item -Force
-
-# Compile ulang langsung ke classes folder agar jar hanya berisi bytecode aplikasi
-Set-Location $SourceDir
-& $Javac -d $ClassesDir *.java
 
 Set-Location $Root
 Copy-Item -Path (Join-Path $ClassesDir '*.class') -Destination $InputDir -Force

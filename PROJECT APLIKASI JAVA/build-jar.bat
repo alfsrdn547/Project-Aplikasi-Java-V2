@@ -3,6 +3,7 @@ setlocal
 set "PROJECT_DIR=%~dp0"
 cd /d "%PROJECT_DIR%"
 set "LIB_JAR=lib\mysql-connector-j-9.6.0.jar"
+set "SRC_DIR=src"
 set "CLASSES_DIR=classes"
 set "JAR_NAME=AplikasiKeuangan.jar"
 set "JAR_CMD=jar"
@@ -20,7 +21,7 @@ if errorlevel 1 (
     )
 )
 
-javac -d "%CLASSES_DIR%" -cp "%LIB_JAR%" *.java
+javac -d "%CLASSES_DIR%" -cp "%LIB_JAR%" "%SRC_DIR%\*.java"
 if errorlevel 1 goto fail
 (
   echo Manifest-Version: 1.0
