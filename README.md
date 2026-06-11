@@ -1,26 +1,26 @@
 # Aplikasi Keuangan
 
-Panduan penggunaan untuk pengguna biasa.
+Aplikasi ini digunakan untuk mencatat pemasukan, pengeluaran, dan melihat ringkasan keuangan pribadi. Aplikasi dibuat dengan Java Swing dan tersambung ke database MySQL.
 
-## Apa yang bisa Anda lakukan
+## Fitur utama
 
 - Login dan registrasi akun
-- Mencatat pemasukan dan pengeluaran
-- Melihat saldo, dashboard, dan riwayat transaksi
-- Mengekspor transaksi ke file CSV jika fitur tersedia
-- Menggunakan aplikasi secara mandiri tanpa akses ke panel admin
+- Catat pemasukan dan pengeluaran
+- Lihat saldo, dashboard, dan riwayat transaksi
+- Export data transaksi ke file CSV jika fitur tersedia
+- Akses admin hanya untuk akun yang memiliki role admin
 
-## Prasyarat
+## Syarat awal
 
 - Java JDK 17 atau lebih baru
-- MySQL Server yang bisa diakses aplikasi
-- File library JDBC tersedia di lib/mysql-connector-j-9.6.0.jar
+- Server MySQL yang aktif
+- File JDBC tersedia di folder lib/mysql-connector-j-9.6.0.jar
 
-## Persiapan
+## Cara menjalankan
 
-1. Pastikan MySQL berjalan.
-2. Sesuaikan konfigurasi database di PROJECT APLIKASI JAVA/db.properties.
-3. Jalankan aplikasi dengan:
+1. Pastikan MySQL sudah berjalan.
+2. Atur koneksi database di file PROJECT APLIKASI JAVA/db.properties.
+3. Jalankan aplikasi dengan perintah berikut:
 
 ```powershell
 .\run.bat
@@ -28,17 +28,17 @@ Panduan penggunaan untuk pengguna biasa.
 
 ## Login
 
-Gunakan akun yang telah Anda daftarkan. Jika belum punya akun, pilih menu registrasi.
+Gunakan akun yang sudah didaftarkan. Jika belum punya akun, pilih menu registrasi.
 
 ## Catatan penting
 
-- Fitur manajemen pengguna dan tombol admin tidak akan muncul untuk akun user biasa.
-- Jika Anda ingin mengelola akun pengguna lain, gunakan akun admin yang telah disediakan.
+- Fitur manajemen pengguna dan tombol admin hanya tersedia untuk akun admin.
+- Untuk mengelola akun pengguna lain, gunakan akun admin.
 
-## Bantuan
+## Jika aplikasi tidak bisa terhubung ke database
 
-Jika aplikasi gagal terhubung ke database, cek kembali:
+Periksa kembali:
 
 - password MySQL
-- konfigurasi DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
-- file produk_db.sql dan Database.java
+- pengaturan DB_HOST, DB_PORT, DB_NAME, DB_USER, dan DB_PASSWORD
+- file produk_db.sql serta file Database.java
