@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AplikasiKeuangan" default="build" basedir=".">
+    <description>
+        Build file for Aplikasi Keuangan - Financial Application
+    </description>
+
+    <!-- Set properties -->
+    <property name="src.dir" location="PROJECT APLIKASI JAVA/src"/>
+    <property name="build.dir" location="PROJECT APLIKASI JAVA/classes"/>
+    <property name="lib.dir" location="PROJECT APLIKASI JAVA/lib"/>
+    <property name="dist.dir" location="PROJECT APLIKASI JAVA/dist"/>
+    <property name="jar.name" value="AplikasiKeuangan.jar"/>
+
+    <!-- Initialize directories -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- Compile Java source code -->
+    <target name="build" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" debug="true">
+            <classpath>
+                <fileset dir="${lib.dir}" includes="*.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- Create JAR file -->
+    <target name="jar" depends="build">
+        <jar destfile="${dist.dir}/${jar.name}" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="AplikasiKeuangan"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Clean build artifacts -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <!-- Rebuild everything -->
+    <target name="rebuild" depends="clean, build"/>
+</project>
